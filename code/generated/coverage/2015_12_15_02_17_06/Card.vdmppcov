@@ -1,0 +1,59 @@
+class Card
+/*
+	Class that represents a single card
+	Each card has a value, from 1 to 13, a color and its status 
+	(if it's faced down or not)
+*/
+	types
+		public Number = nat1 -- 1 - Ace, 11 - Jack, 12 - Queen, 13 - King
+			inv cardValue == cardValue in set {1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13};
+		public Suit = <Clubs> | <Hearts> | <Spades> | <Diamonds>;
+		public Status = <Face_Up> | <Face_Down>;
+		public SuitColor = map Suit to Player`Color;
+		
+	instance variables
+		public number: Number;
+		public suit: Suit;
+		public status: Status := <Face_Down>;
+		public color: Player`Color;
+		public suitColors: SuitColor := {<Clubs> |-> <Black>, <Spades> |-> <Black>, <Diamonds> |-> <Red>, <Hearts> |-> <Red>};
+		
+	operations
+		-- constructor
+		public Card: Number * Suit ==> Card
+			Card(nr, sui) == (
+			number := nr;
+			suit := sui;
+			color := suitColors(sui); 
+			return self
+		);
+		
+		-- gets
+		public getNumber: () ==> Number
+			getNumber() ==
+				return number;
+				
+		public getSuit: () ==> Suit
+			getSuit() ==
+				return suit;
+				
+		-- turn a a card for movement purposes.
+		public turnCard: () ==> ()
+			turnCard() ==
+				if (status = <Face_Down>) then
+					status := <Face_Up>
+				else
+					status := <Face_Down>;
+		
+		-- compares two cards, returning 1 if higher, -1 if lower or 0 if equal, acording to the game rules	
+		public compare: Card ==> int
+			compare(c) == (
+			if (number > c.getNumber()) then
+				return 1
+			elseif (number < c.getNumber()) then
+				return -1
+			else
+				return 0;
+		);
+	
+end Card

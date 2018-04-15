@@ -1,0 +1,65 @@
+<?xml version="1.0" ?>
+<!--GENERATED FILE, PLEASE DO NOT EDIT!!!--><EXT object="Basic VDM Types" version="3">
+  <DEPS>
+    <ID name="Basic VDM Types" mc="Package" uid="62bacacd-5aa9-4350-b40c-5fdb462dc716"/>
+    <COMPID name="&lt;Black&gt;" mc="DataType" uid="9f413c0f-9bd2-4827-9ffa-6f542698514f"/>
+    <COMPID name="&lt;Blue&gt;" mc="DataType" uid="59cd648b-6e11-4b1d-a541-7e7735485c7c"/>
+    <COMPID name="&lt;Clubs&gt;" mc="DataType" uid="cf105070-bb73-46c6-961f-8069afed908f"/>
+    <COMPID name="&lt;Diamonds&gt;" mc="DataType" uid="3b9baedb-689d-4c79-9396-c2833f6c96b1"/>
+    <COMPID name="&lt;Face_Down&gt;" mc="DataType" uid="df21ec45-441a-4de4-8693-9970e60500f0"/>
+    <COMPID name="&lt;Face_Up&gt;" mc="DataType" uid="a82880b3-3ff6-4fad-bbdb-3c19d6170e24"/>
+    <COMPID name="&lt;FirstPlayer&gt;" mc="DataType" uid="4b28cecc-ecbe-419a-b66d-0e71e33d264d"/>
+    <COMPID name="&lt;Hearts&gt;" mc="DataType" uid="08e3a947-7810-41e8-a1fe-9259dc8b6c42"/>
+    <COMPID name="&lt;Red&gt;" mc="DataType" uid="8a24b405-4e60-464f-96d1-bef430a26d0d"/>
+    <COMPID name="&lt;Red&gt;" mc="DataType" uid="0bc7fcd1-6546-403f-8908-96f595dabccf"/>
+    <COMPID name="&lt;SecondPlayer&gt;" mc="DataType" uid="b025b086-3c23-4805-8f49-e69adc1b9b1b"/>
+    <COMPID name="&lt;Spades&gt;" mc="DataType" uid="624edbb7-4160-48ff-ac75-dad13620b22e"/>
+    <COMPID name="&lt;append&gt;" mc="DataType" uid="79f9fbbd-94f0-4825-99d6-b15e7a7d6fbb"/>
+    <COMPID name="&lt;start&gt;" mc="DataType" uid="33310038-7477-4918-a616-71cec6ac9b08"/>
+    <COMPID name="Any" mc="DataType" uid="e1cf054e-45b7-47de-bc70-5009b1748230"/>
+    <COMPID name="Void" mc="DataType" uid="34612902-eaf5-47f9-8098-73d3c50016e5"/>
+    <COMPID name="bool" mc="DataType" uid="a8608c5f-0f7f-40ab-bdbe-cd024aaf4bfa"/>
+    <COMPID name="int" mc="DataType" uid="82ddcae4-dadb-4941-a847-8beece49a8d7"/>
+    <COMPID name="nat" mc="DataType" uid="0dd5e817-0683-44e3-b4dc-0876608fa8bf"/>
+    <COMPID name="nat1" mc="DataType" uid="3717969b-dc6e-4342-9091-e6726f4a2e1e"/>
+    <COMPID name="real" mc="DataType" uid="27b44b2b-ef8e-4429-97b0-5b01d7d65c5f"/>
+  </DEPS>
+  <OBJECT>
+    <ID name="Basic VDM Types" mc="Package" uid="62bacacd-5aa9-4350-b40c-5fdb462dc716"/>
+    <PID name="russian bank" mc="Package" uid="ba3e8af3-fa24-44b1-a866-3a15c48bbb2d"/>
+    <ATTRIBUTES>
+      <ATT name="IsInstantiable">false</ATT>
+      <ATT name="IsAbstract">false</ATT>
+      <ATT name="IsLeaf">false</ATT>
+      <ATT name="IsRoot">false</ATT>
+      <ATT name="Visibility">Public</ATT>
+      <ATT name="Name"><![CDATA[Basic VDM Types]]></ATT>
+      <ATT name="status">1970354901745664</ATT>
+    </ATTRIBUTES>
+    <DEPENDENCIES>
+      <COMP relation="OwnedElement">
+        <COMPID name="&lt;FirstPlayer&gt;" mc="DataType" uid="4b28cecc-ecbe-419a-b66d-0e71e33d264d"/>
+        <COMPID name="&lt;SecondPlayer&gt;" mc="DataType" uid="b025b086-3c23-4805-8f49-e69adc1b9b1b"/>
+        <COMPID name="nat1" mc="DataType" uid="3717969b-dc6e-4342-9091-e6726f4a2e1e"/>
+        <COMPID name="&lt;Clubs&gt;" mc="DataType" uid="cf105070-bb73-46c6-961f-8069afed908f"/>
+        <COMPID name="&lt;Diamonds&gt;" mc="DataType" uid="3b9baedb-689d-4c79-9396-c2833f6c96b1"/>
+        <COMPID name="&lt;Hearts&gt;" mc="DataType" uid="08e3a947-7810-41e8-a1fe-9259dc8b6c42"/>
+        <COMPID name="&lt;Spades&gt;" mc="DataType" uid="624edbb7-4160-48ff-ac75-dad13620b22e"/>
+        <COMPID name="&lt;Face_Down&gt;" mc="DataType" uid="df21ec45-441a-4de4-8693-9970e60500f0"/>
+        <COMPID name="&lt;Face_Up&gt;" mc="DataType" uid="a82880b3-3ff6-4fad-bbdb-3c19d6170e24"/>
+        <COMPID name="&lt;Black&gt;" mc="DataType" uid="9f413c0f-9bd2-4827-9ffa-6f542698514f"/>
+        <COMPID name="&lt;Red&gt;" mc="DataType" uid="0bc7fcd1-6546-403f-8908-96f595dabccf"/>
+        <COMPID name="&lt;Blue&gt;" mc="DataType" uid="59cd648b-6e11-4b1d-a541-7e7735485c7c"/>
+        <COMPID name="&lt;Red&gt;" mc="DataType" uid="8a24b405-4e60-464f-96d1-bef430a26d0d"/>
+        <COMPID name="&lt;append&gt;" mc="DataType" uid="79f9fbbd-94f0-4825-99d6-b15e7a7d6fbb"/>
+        <COMPID name="&lt;start&gt;" mc="DataType" uid="33310038-7477-4918-a616-71cec6ac9b08"/>
+        <COMPID name="Void" mc="DataType" uid="34612902-eaf5-47f9-8098-73d3c50016e5"/>
+        <COMPID name="bool" mc="DataType" uid="a8608c5f-0f7f-40ab-bdbe-cd024aaf4bfa"/>
+        <COMPID name="int" mc="DataType" uid="82ddcae4-dadb-4941-a847-8beece49a8d7"/>
+        <COMPID name="nat" mc="DataType" uid="0dd5e817-0683-44e3-b4dc-0876608fa8bf"/>
+        <COMPID name="Any" mc="DataType" uid="e1cf054e-45b7-47de-bc70-5009b1748230"/>
+        <COMPID name="real" mc="DataType" uid="27b44b2b-ef8e-4429-97b0-5b01d7d65c5f"/>
+      </COMP>
+    </DEPENDENCIES>
+  </OBJECT>
+</EXT>

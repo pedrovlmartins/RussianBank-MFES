@@ -1,0 +1,467 @@
+/*
+	Class Board
+	Responsible to unite every concept of the game.
+	Creates both players, both player's decks, and join both of them with the foundations 
+	and the tableau. Also creates the movement rules that need to be validated, changes turn,
+	verifies if is game over or not, and returns the points for each player.
+*/
+class Board
+	types
+		public activePlayer = [<FirstPlayer> | <SecondPlayer>];
+		public tableauNumber = nat1
+			inv numbersOfTableau == numbersOfTableau in set {1,...,8};
+		public foundationNumber = nat1
+			inv numbersOfFoundation == numbersOfFoundation in set {1,...,8};
+		
+			
+	instance variables
+		-- reunites both players
+		public firstPlayer: Player := new Player();
+		public secondPlayer: Player := new Player();
+
+		-- foundations and the tableau are common proprierty of both players.
+		public foundations: seq of Deck := [];
+		public tableau: seq of Deck := [];
+		
+		-- this variable indicates the player whose turn is in
+		public turn: activePlayer := nil;
+		
+	operations
+		
+		-- for testing purposes
+		-- for some reason, without this we can't use the operation addIntoDeckFront
+		-- on the test class
+		public addCardToTableau: tableauNumber * Card ==> ()
+			addCardToTableau(i,c) == (
+				tableau(i).addIntoDeckFront(c);
+			);
+		-- for testing purposes
+		-- for some reason, without this we can't use the operation addIntoDeckFront
+		-- on the test class
+		public addCardToFoundation: foundationNumber * Card ==> ()
+			addCardToFoundation(i,c) == (
+				foundations(i).addIntoDeckFront(c);
+			);
+		
+/*
+		-- creates the starting board.
+		public createStartingBoard: () ==> Board
+			createStartingBoard() == (
+			
+			-- create both players
+			firstPlayer := new Player(<Red>);
+			secondPlayer := new Player(<Blue>);
+			-- shuffle the decks for each player
+			firstPlayer.shuffleDeck();
+			secondPlayer.shuffleDeck();
+			-- creates the hands and reserve pile for each player
+			firstPlayer.createHandReserve();
+			secondPlayer.createHandReserve();
+			-- fills the tableau with 4 cards dealt from each play's hand
+			fillInitialTableau();
+			-- create the empty foundations
+			fillInitialFoundations();
+			-- see who's the first player to make a move (the one with the lowest-ranking reserve card)
+			setFirstTurn();
+			
+			return self;
+			);
+*/
+			-- fills the initial tableau with the 8 cards from each player
+			public fillInitialTableau: () ==> ()
+				fillInitialTableau() == (
+					for i = 1 to 4 do (
+						tableau(i) := new Deck([firstPlayer.hand.getTopCard()]);
+						tableau(i).turnUpTopCard();
+						firstPlayer.hand.removeTopCard()
+					);
+					for i = 5 to 8 do (
+						tableau(i) := new Deck([secondPlayer.hand.getTopCard()]);
+						tableau(i).turnUpTopCard();
+						secondPlayer.hand.removeTopCard()
+					);
+			)
+			pre len tableau = 0
+			post len tableau = 8;
+			
+			-- create initial empty foundations
+			public fillInitialFoundations: () ==> ()
+				fillInitialFoundations() == (
+					for i = 1 to 8 do (
+						foundations(i) := new Deck();
+					);
+			)
+			pre len foundations = 0
+			post len foundations = 8;
+			
+			-- set who should play in the first turn
+			public setFirstTurn: () ==> ()
+				setFirstTurn() == (
+					dcl topReserve1:Card := firstPlayer.reserve.getTopCard();
+					dcl topReserve2:Card := secondPlayer.reserve.getTopCard();
+					
+					if (topReserve1.compare(topReserve2) = -1) then
+						turn := <FirstPlayer> -- if lower-ranking reserve card, then player1 plays first
+					elseif (topReserve1.compare(topReserve2) = 1) then
+						turn := <SecondPlayer> -- or the contrary
+					elseif (tableau(1).getTopCard().compare(tableau(5).getTopCard()) = -1) then
+						turn := <FirstPlayer> -- if equal, then if lower-ranking first hand card, then player1 plays first
+					elseif (tableau(1).getTopCard().compare(tableau(5).getTopCard()) = 1) then
+						turn := <SecondPlayer> -- or the contrary
+					elseif (tableau(2).getTopCard().compare(tableau(6).getTopCard()) = -1) then
+						turn := <FirstPlayer> -- if lower-ranking second hand card, then player1 plays first...and so on
+					elseif (tableau(2).getTopCard().compare(tableau(6).getTopCard()) = 1) then
+						turn := <SecondPlayer>
+					elseif (tableau(3).getTopCard().compare(tableau(7).getTopCard()) = -1) then
+						turn := <FirstPlayer>
+					elseif (tableau(3).getTopCard().compare(tableau(7).getTopCard()) = 1) then
+						turn := <SecondPlayer>
+					elseif (tableau(4).getTopCard().compare(tableau(8).getTopCard()) = -1) then
+						turn := <FirstPlayer>
+					elseif (tableau(4).getTopCard().compare(tableau(8).getTopCard()) = 1) then
+						turn := <SecondPlayer>
+			)
+			pre turn = nil
+			post turn = <FirstPlayer> or turn = <SecondPlayer>;
+/*				
+			-- change the turn to the other player, putting one card
+			public changePlayer: () ==> ()
+				changePlayer() == (
+					if (turn = <FirstPlayer>) then (
+						if not Deck`isEmpty(firstPlayer.hand.cards) then (
+							if not Deck`isEmpty(firstPlayer.waste.cards) then (
+								firstPlayer.waste.turnUpTopCard();
+							);
+							if(not Deck`isEmpty(firstPlayer.hand.cards)) then (
+								firstPlayer.waste.addIntoDeckFront(firstPlayer.hand.cards(1));
+								firstPlayer.waste.turnUpTopCard();
+								firstPlayer.hand.removeFromDeck(1);
+								)
+						);
+						turn := <SecondPlayer>;
+						)
+					else (
+						if not Deck`isEmpty(secondPlayer.hand.cards) then (
+							if not Deck`isEmpty(secondPlayer.waste.cards) then (
+								secondPlayer.waste.turnUpTopCard();
+							);
+							if(not Deck`isEmpty(secondPlayer.hand.cards)) then (
+								secondPlayer.waste.addIntoDeckFront(secondPlayer.hand.cards(1));
+								secondPlayer.waste.turnUpTopCard();
+								secondPlayer.hand.removeFromDeck(1);
+							)
+						);
+						turn := <FirstPlayer>;
+					);
+				) pre turn = <FirstPlayer> or turn = <SecondPlayer>;
+*/			
+			-- check if game is over
+			public isGameOver: () ==> activePlayer
+				isGameOver() == (
+				if Deck`isEmpty(firstPlayer.hand.cards) 
+				   and Deck`isEmpty(firstPlayer.reserve.cards)
+				   and Deck`isEmpty(firstPlayer.waste.cards) then return <FirstPlayer>
+				else if Deck`isEmpty(secondPlayer.hand.cards)
+				   and Deck`isEmpty(secondPlayer.reserve.cards)
+				   and Deck`isEmpty(secondPlayer.waste.cards) then return <SecondPlayer>;
+				return nil;
+				);
+			
+			-- move a card from one tableau to one foundation
+			public moveCardFromTableauToFoundation: tableauNumber * foundationNumber ==> bool
+				moveCardFromTableauToFoundation(i,j) == (
+					if(Deck`isEmpty(foundations(j).cards)) then (
+						if(tableau(i).getTopCard().getNumber() <> 1) then
+							return false
+						else
+							foundations(j).addIntoDeckFront(tableau(i).getTopCard());
+							tableau(i).removeTopCard();
+							if not Deck`isEmpty(tableau(i).cards) then
+								tableau(i).turnUpTopCard();
+							return true; 
+						)
+					else 
+						if(tableau(i).getTopCard().getSuit() = foundations(j).getTopCard().getSuit()
+							and tableau(i).getTopCard().getNumber() = foundations(j).getTopCard().getNumber() + 1) then (
+								foundations(j).turnUpTopCard();
+								foundations(j).addIntoDeckFront(tableau(i).getTopCard());
+								tableau(i).removeTopCard();
+								if not Deck`isEmpty(tableau(i).cards) then
+									tableau(i).turnUpTopCard();
+								return true; 
+							)
+						else return false;
+				) pre not Deck`isEmpty(tableau(i).cards)
+					post (Deck`isEmpty(tableau(i).cards) or Deck`isOrdered(tableau(i).cards)) and Deck`isOrderedSuit(foundations(j).cards);
+			
+			-- move a card from one tableau to another tableau
+			public moveCardFromTableauToTableau: tableauNumber * tableauNumber ==> bool
+				moveCardFromTableauToTableau(i,j) == (
+					if(Deck`isEmpty(tableau(i).cards)) then (
+						if(tableau(i).getTopCard().getNumber() <> 1) then
+							return false
+						else
+							tableau(j).addIntoDeckFront(tableau(i).getTopCard());
+							tableau(i).removeTopCard();
+							if not Deck`isEmpty(tableau(i).cards) then
+								tableau(i).turnUpTopCard();
+							return true; 
+						)
+					else 
+						if(tableau(i).getTopCard().color <> tableau(j).getTopCard().color
+							and tableau(i).getTopCard().getNumber() = tableau(j).getTopCard().getNumber() - 1) then (
+								tableau(j).turnUpTopCard();
+								tableau(j).addIntoDeckFront(tableau(i).getTopCard());
+								tableau(i).removeTopCard();
+								if not Deck`isEmpty(tableau(i).cards) then
+									tableau(i).turnUpTopCard();
+								return true; 
+							)
+						else return false;
+				) pre not Deck`isEmpty(tableau(i).cards)
+					post Deck`isOrdered(tableau(i).cards) and Deck`isOrderedSuit(tableau(j).cards);
+			
+			-- move a card from one tableau to other player waste
+			public moveCardFromTableauToWaste : tableauNumber ==> bool
+				moveCardFromTableauToWaste(i) == (
+					if turn = <FirstPlayer> then (
+						if(tableau(i).getTopCard().getSuit() <> secondPlayer.waste.getTopCard().getSuit()
+							 and tableau(i).getTopCard().getNumber() <> secondPlayer.waste.getTopCard().getNumber() + 1
+							 and tableau(i).getTopCard().getNumber() <> secondPlayer.waste.getTopCard().getNumber() - 1) then
+							 return false
+						else (
+							if not Deck`isEmpty(secondPlayer.waste.cards) then
+								secondPlayer.waste.turnUpTopCard();
+							secondPlayer.waste.addIntoDeckFront(tableau(i).getTopCard());
+							tableau(i).removeTopCard();
+							if not Deck`isEmpty(tableau(i).cards) then
+								tableau(i).turnUpTopCard();
+							return true;
+						)
+					) else (
+						if(tableau(i).getTopCard().getSuit() <> firstPlayer.waste.getTopCard().getSuit()
+							 and tableau(i).getTopCard().getNumber() <> firstPlayer.waste.getTopCard().getNumber() + 1
+							 and tableau(i).getTopCard().getNumber() <> firstPlayer.waste.getTopCard().getNumber() - 1) then
+							 return false
+						else (
+							if not Deck`isEmpty(firstPlayer.waste.cards) then
+									firstPlayer.waste.turnUpTopCard();
+							firstPlayer.waste.addIntoDeckFront(tableau(i).getTopCard());
+							tableau(i).removeTopCard();
+							if not Deck`isEmpty(tableau(i).cards) then
+								tableau(i).turnUpTopCard();
+							return true;
+						)
+					)
+				) pre not Deck`isEmpty(tableau(i).cards)
+					post Deck`isEmpty(tableau(i).cards) or Deck`isOrdered(tableau(i).cards); 
+			
+			-- move a card from one tableau to other player waste		
+			public moveCardFromTableauToReserve : tableauNumber ==> bool
+				moveCardFromTableauToReserve(i) == (
+					if turn = <FirstPlayer> then (
+						if(tableau(i).getTopCard().getSuit() <> secondPlayer.reserve.getTopCard().getSuit()
+							 and tableau(i).getTopCard().getNumber() <> secondPlayer.reserve.getTopCard().getNumber() + 1
+							 and tableau(i).getTopCard().getNumber() <> secondPlayer.reserve.getTopCard().getNumber() - 1) then
+							 return false
+						else (
+							if not Deck`isEmpty(secondPlayer.reserve.cards) then
+									secondPlayer.reserve.turnUpTopCard();
+							secondPlayer.reserve.addIntoDeckFront(tableau(i).getTopCard());
+							tableau(i).removeTopCard();
+							if not Deck`isEmpty(tableau(i).cards) then
+								tableau(i).turnUpTopCard();
+							return true;
+						)
+					) else (
+						if(tableau(i).getTopCard().getSuit() <> firstPlayer.reserve.getTopCard().getSuit()
+							 and tableau(i).getTopCard().getNumber() <> firstPlayer.reserve.getTopCard().getNumber() + 1
+							 and tableau(i).getTopCard().getNumber() <> firstPlayer.reserve.getTopCard().getNumber() - 1) then
+							 return false
+						else (
+							if not Deck`isEmpty(firstPlayer.reserve.cards) then
+									firstPlayer.reserve.turnUpTopCard();
+							firstPlayer.reserve.addIntoDeckFront(tableau(i).getTopCard());
+							tableau(i).removeTopCard();
+							if not Deck`isEmpty(tableau(i).cards) then
+								tableau(i).turnUpTopCard();
+							return true;
+						)
+					)
+				) pre not Deck`isEmpty(tableau(i).cards)
+					post Deck`isEmpty(tableau(i).cards) or Deck`isOrdered(tableau(i).cards);
+		
+			-- move a card from players reserve to one tableau					
+			public moveCardFromReserveToTableau : tableauNumber ==> bool
+				moveCardFromReserveToTableau(i) == (
+					if turn = <FirstPlayer> then (
+						if(Deck`isEmpty(firstPlayer.reserve.cards) or tableau(i).getTopCard().color = firstPlayer.reserve.getTopCard().color 
+						   or tableau(i).getTopCard().number <= firstPlayer.reserve.getTopCard().number) then
+							 return false
+						else (
+							if not Deck`isEmpty(tableau(i).cards) then
+									tableau(i).turnUpTopCard();
+							tableau(i).addIntoDeckFront(firstPlayer.reserve.getTopCard());
+							firstPlayer.reserve.removeTopCard();
+							if not Deck`isEmpty(firstPlayer.reserve.cards) then
+									firstPlayer.reserve.turnUpTopCard();
+							return true;
+						)
+					) else (
+						if(Deck`isEmpty(secondPlayer.reserve.cards) or tableau(i).getTopCard().color = secondPlayer.reserve.getTopCard().color 
+						   or tableau(i).getTopCard().number <= secondPlayer.reserve.getTopCard().number) then
+							 return false
+						else (
+							if not Deck`isEmpty(tableau(i).cards) then
+									tableau(i).turnUpTopCard();
+							tableau(i).addIntoDeckFront(secondPlayer.reserve.getTopCard());
+							secondPlayer.reserve.removeTopCard();
+							if not Deck`isEmpty(secondPlayer.reserve.cards) then
+									secondPlayer.reserve.turnUpTopCard();
+							return true;
+						)
+					)
+				) pre not Deck`isEmpty(tableau(i).cards)
+					post Deck`isOrdered(tableau(i).cards);
+			
+			-- move a card from players reserve to one foundation
+			public moveCardFromReserveToFoundation : foundationNumber ==> bool
+				moveCardFromReserveToFoundation(i) == (
+					if turn = <FirstPlayer> then (
+						if(Deck`isEmpty(foundations(i).cards)) then (
+							if(firstPlayer.reserve.getTopCard().number <> 1) then
+								return false
+							else (
+								foundations(i).addIntoDeckFront(firstPlayer.reserve.getTopCard());
+								firstPlayer.reserve.removeTopCard();
+								if not Deck`isEmpty(firstPlayer.reserve.cards) then
+									firstPlayer.reserve.turnUpTopCard();
+								return true; 
+							);
+						)
+						else if(foundations(i).getTopCard().getSuit() <> firstPlayer.reserve.getTopCard().getSuit() 
+						   or foundations(i).getTopCard().number <> firstPlayer.reserve.getTopCard().number - 1) then
+							 return false
+						else (
+							if not Deck`isEmpty(foundations(i).cards) then
+										foundations(i).turnUpTopCard();
+							foundations(i).addIntoDeckFront(firstPlayer.reserve.getTopCard());
+							firstPlayer.reserve.removeTopCard();
+							if not Deck`isEmpty(firstPlayer.reserve.cards) then
+									firstPlayer.reserve.turnUpTopCard();
+							return true;
+						)
+					) else (
+						if(Deck`isEmpty(foundations(i).cards)) then (
+							if(secondPlayer.reserve.getTopCard().number <> 1) then
+								return false
+							else (
+								foundations(i).addIntoDeckFront(secondPlayer.reserve.getTopCard());
+								secondPlayer.reserve.removeTopCard();
+								if not Deck`isEmpty(secondPlayer.reserve.cards) then
+									secondPlayer.reserve.turnUpTopCard();
+								return true; 
+							);
+						)
+						else if(foundations(i).getTopCard().getSuit() <> secondPlayer.reserve.getTopCard().getSuit() 
+						   or foundations(i).getTopCard().number <> secondPlayer.reserve.getTopCard().number - 1) then
+							 return false
+						else (
+							if not Deck`isEmpty(foundations(i).cards) then
+										foundations(i).turnUpTopCard();
+							foundations(i).addIntoDeckFront(secondPlayer.reserve.getTopCard());
+							secondPlayer.reserve.removeTopCard();
+							if not Deck`isEmpty(secondPlayer.reserve.cards) then
+									secondPlayer.reserve.turnUpTopCard();
+							return true;
+						)
+					)
+				)pre (not Deck`isEmpty(firstPlayer.reserve.cards) and turn = <FirstPlayer>)
+							or (not Deck`isEmpty(secondPlayer.reserve.cards) and turn = <SecondPlayer>) 
+				 post Deck`isOrderedSuit(foundations(i).cards);
+			
+			-- move a card from players reserve to opposing reserve
+			public moveCardFromReserveToReserve : () ==> bool
+				moveCardFromReserveToReserve() == (
+					if turn = <FirstPlayer> then (
+						if(firstPlayer.reserve.getTopCard().getSuit() <> secondPlayer.reserve.getTopCard().getSuit() 
+						   or (firstPlayer.reserve.getTopCard().number <> secondPlayer.reserve.getTopCard().number - 1
+						   		 and firstPlayer.reserve.getTopCard().number <> secondPlayer.reserve.getTopCard().number + 1)) then
+							 return false
+						else (
+							secondPlayer.reserve.turnUpTopCard();
+							secondPlayer.reserve.addIntoDeckFront(firstPlayer.reserve.getTopCard());
+							firstPlayer.reserve.removeTopCard();
+							if not Deck`isEmpty(firstPlayer.reserve.cards) then
+									firstPlayer.reserve.turnUpTopCard();
+							return true;
+						)
+					) else (
+						if(firstPlayer.reserve.getTopCard().getSuit() <> secondPlayer.reserve.getTopCard().getSuit() 
+						   or (secondPlayer.reserve.getTopCard().number <> firstPlayer.reserve.getTopCard().number - 1
+						   		 and secondPlayer.reserve.getTopCard().number <> firstPlayer.reserve.getTopCard().number + 1)) then
+							 return false
+						else (
+							firstPlayer.reserve.turnUpTopCard();
+							firstPlayer.reserve.addIntoDeckFront(secondPlayer.reserve.getTopCard());
+							secondPlayer.reserve.removeTopCard();
+							if not Deck`isEmpty(secondPlayer.reserve.cards) then
+									secondPlayer.reserve.turnUpTopCard();
+							return true;
+						)
+					)
+				) pre not Deck`isEmpty(firstPlayer.reserve.cards) and not Deck`isEmpty(secondPlayer.reserve.cards);
+			
+			-- move a card from players reserve to opposing waste
+			public moveCardFromReserveToWaste : () ==> bool
+				moveCardFromReserveToWaste() == (
+					if turn = <FirstPlayer> then (
+						if(firstPlayer.reserve.getTopCard().getSuit() <> secondPlayer.waste.getTopCard().getSuit() 
+						   or (firstPlayer.reserve.getTopCard().number <> secondPlayer.waste.getTopCard().number - 1
+						   		 and firstPlayer.reserve.getTopCard().number <> secondPlayer.waste.getTopCard().number + 1)) then
+							 return false
+						else (
+							if not Deck`isEmpty(secondPlayer.waste.cards) then
+									secondPlayer.waste.turnUpTopCard();
+							secondPlayer.waste.addIntoDeckFront(firstPlayer.reserve.getTopCard());
+							firstPlayer.reserve.removeTopCard();
+							if not Deck`isEmpty(firstPlayer.reserve.cards) then
+									firstPlayer.reserve.turnUpTopCard();
+							return true;
+						)
+					) else (
+						if(secondPlayer.reserve.getTopCard().getSuit() <> firstPlayer.waste.getTopCard().getSuit() 
+						   or (secondPlayer.reserve.getTopCard().number <> firstPlayer.waste.getTopCard().number - 1
+						   		 and secondPlayer.reserve.getTopCard().number <> firstPlayer.waste.getTopCard().number + 1)) then
+							 return false
+						else (
+							if not Deck`isEmpty(firstPlayer.waste.cards) then
+									firstPlayer.waste.turnUpTopCard();
+							firstPlayer.waste.addIntoDeckFront(secondPlayer.reserve.getTopCard());
+							secondPlayer.reserve.removeTopCard();
+							if not Deck`isEmpty(secondPlayer.reserve.cards) then
+									secondPlayer.reserve.turnUpTopCard();
+							return true;
+						)
+					)
+				) pre (not Deck`isEmpty(firstPlayer.reserve.cards) and not Deck`isEmpty(secondPlayer.waste.cards) and turn = <FirstPlayer>)
+							or (not Deck`isEmpty(secondPlayer.reserve.cards) and not Deck`isEmpty(firstPlayer.waste.cards) and turn = <SecondPlayer>)
+					post (not Deck`isEmpty(secondPlayer.waste.cards) and turn = <FirstPlayer> )
+							or (not Deck`isEmpty(firstPlayer.waste.cards) and turn = <SecondPlayer> );
+			
+			-- if there's a winner, update the respective score
+			public updatePoints : () ==> ()
+				updatePoints() == (
+					dcl winner:activePlayer := self.isGameOver();
+					if winner = <FirstPlayer> then (
+						firstPlayer.score := firstPlayer.score + 30 + len secondPlayer.hand.cards 
+						+ len secondPlayer.waste.cards + 2 * len secondPlayer.reserve.cards;
+					)
+					else if winner = <SecondPlayer> then (
+						secondPlayer.score := secondPlayer.score + 30 + len firstPlayer.hand.cards 
+						+ len firstPlayer.waste.cards + 2 * len firstPlayer.reserve.cards;
+					)
+				);		
+				
+					
+end Board

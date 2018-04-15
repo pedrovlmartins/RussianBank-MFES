@@ -1,0 +1,25 @@
+<?xml version="1.0" ?>
+<!--GENERATED FILE, PLEASE DO NOT EDIT!!!--><EXT object="Russian Bank" version="3">
+  <DEPS>
+    <ID name="Russian Bank" mc="Project" uid="039ac709-fdd6-4204-922e-2fe6e1a693a0"/>
+    <COMPID name="Russian Bank" mc="DiagramSet" uid="7de40dc3-3a62-415c-9722-a2a7d44f24b8"/>
+    <COMPID name="russian bank" mc="Package" uid="ba3e8af3-fa24-44b1-a866-3a15c48bbb2d"/>
+  </DEPS>
+  <OBJECT>
+    <ID name="Russian Bank" mc="Project" uid="039ac709-fdd6-4204-922e-2fe6e1a693a0"/>
+    <ATTRIBUTES>
+      <ATT name="ProjectContext"></ATT>
+      <ATT name="ProjectDescr"></ATT>
+      <ATT name="Name"><![CDATA[Russian Bank]]></ATT>
+      <ATT name="status">1970354901745664</ATT>
+    </ATTRIBUTES>
+    <DEPENDENCIES>
+      <COMP relation="DiagramRoot">
+        <COMPID name="Russian Bank" mc="DiagramSet" uid="7de40dc3-3a62-415c-9722-a2a7d44f24b8"/>
+      </COMP>
+      <COMP relation="Model">
+        <COMPID name="russian bank" mc="Package" uid="ba3e8af3-fa24-44b1-a866-3a15c48bbb2d"/>
+      </COMP>
+    </DEPENDENCIES>
+  </OBJECT>
+</EXT>

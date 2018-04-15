@@ -1,0 +1,40 @@
+<?xml version="1.0" ?>
+<!--GENERATED FILE, PLEASE DO NOT EDIT!!!--><EXT object="tableauNumber" version="3">
+  <DEPS>
+    <ID name="tableauNumber" mc="Class" uid="a85adb66-8c63-4572-8942-8c5768c2d592"/>
+    <EXTID name="nat1" mc="DataType" uid="3717969b-dc6e-4342-9091-e6726f4a2e1e"/>
+  </DEPS>
+  <OBJECT>
+    <ID name="tableauNumber" mc="Class" uid="a85adb66-8c63-4572-8942-8c5768c2d592"/>
+    <PID name="Board" mc="Class" uid="2b075d55-5e61-4683-8e4f-6c3adfb9601f"/>
+    <ATTRIBUTES>
+      <ATT name="IsActive">false</ATT>
+      <ATT name="IsMain">false</ATT>
+      <ATT name="IsElementary">false</ATT>
+      <ATT name="IsAbstract">false</ATT>
+      <ATT name="IsLeaf">false</ATT>
+      <ATT name="IsRoot">false</ATT>
+      <ATT name="Visibility">Public</ATT>
+      <ATT name="Name"><![CDATA[tableauNumber]]></ATT>
+      <ATT name="status">1970354901745664</ATT>
+    </ATTRIBUTES>
+    <DEPENDENCIES>
+      <COMP relation="Parent">
+        <OBJECT>
+          <ID name="" mc="Generalization" uid="4766c2d8-2db4-4e1f-b980-3ffb71b71d79"/>
+          <PID name="tableauNumber" mc="Class" uid="a85adb66-8c63-4572-8942-8c5768c2d592"/>
+          <ATTRIBUTES>
+            <ATT name="Discriminator"></ATT>
+            <ATT name="Name"></ATT>
+            <ATT name="status">1970354901745664</ATT>
+          </ATTRIBUTES>
+          <DEPENDENCIES>
+            <LINK relation="SuperType">
+              <ID name="nat1" mc="DataType" uid="3717969b-dc6e-4342-9091-e6726f4a2e1e"/>
+            </LINK>
+          </DEPENDENCIES>
+        </OBJECT>
+      </COMP>
+    </DEPENDENCIES>
+  </OBJECT>
+</EXT>

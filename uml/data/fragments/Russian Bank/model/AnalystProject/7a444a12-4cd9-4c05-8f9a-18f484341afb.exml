@@ -1,0 +1,19 @@
+<?xml version="1.0" ?>
+<!--GENERATED FILE, PLEASE DO NOT EDIT!!!--><EXT object="Russian Bank" version="3">
+  <DEPS>
+    <ID name="Russian Bank" mc="AnalystProject" uid="7a444a12-4cd9-4c05-8f9a-18f484341afb"/>
+    <COMPID name="Russian Bank" mc="PropertyContainer" uid="c17f2044-f517-4a38-96e0-9181bffebae3"/>
+  </DEPS>
+  <OBJECT>
+    <ID name="Russian Bank" mc="AnalystProject" uid="7a444a12-4cd9-4c05-8f9a-18f484341afb"/>
+    <ATTRIBUTES>
+      <ATT name="Name"><![CDATA[Russian Bank]]></ATT>
+      <ATT name="status">1970354901745664</ATT>
+    </ATTRIBUTES>
+    <DEPENDENCIES>
+      <COMP relation="PropertyRoot">
+        <COMPID name="Russian Bank" mc="PropertyContainer" uid="c17f2044-f517-4a38-96e0-9181bffebae3"/>
+      </COMP>
+    </DEPENDENCIES>
+  </OBJECT>
+</EXT>

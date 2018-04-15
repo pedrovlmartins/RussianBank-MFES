@@ -1,0 +1,41 @@
+<?xml version="1.0" ?>
+<!--GENERATED FILE, PLEASE DO NOT EDIT!!!--><EXT object="Binding classes" version="3">
+  <DEPS>
+    <ID name="Binding classes" mc="Package" uid="57ace606-c639-476a-83d0-8c1cd33805ad"/>
+    <COMPID name="Optional&lt;Board::activePlayer_FirstPlayerSecondPlayer_2068268057&gt;" mc="Class" uid="e3d1c5ae-5a60-4662-b1fd-6243a56a1117"/>
+    <COMPID name="Optional&lt;IO::filedirective&gt;" mc="Class" uid="0d0f3421-076f-413b-bf94-39c4abc73a56"/>
+    <COMPID name="Optional&lt;nat1&gt;" mc="Class" uid="682f20b6-9903-47f5-8e53-91df16a18cb1"/>
+    <COMPID name="Optional&lt;p&gt;" mc="Class" uid="d2858922-b66e-4fe1-a385-7ebdcd4915ce"/>
+    <COMPID name="Product&lt;bool,Optional&lt;p&gt;&gt;" mc="Class" uid="a229dc9c-0636-4e07-9212-eb3d75706aa3"/>
+    <COMPID name="Seq&lt;Any&gt;" mc="Class" uid="332d7fcd-e12e-4212-bfd6-5cd5f06f011a"/>
+    <COMPID name="Seq&lt;Card&gt;" mc="Class" uid="5caeb85a-aec0-4c9e-99dd-825a94e17f6c"/>
+    <COMPID name="Seq&lt;Deck&gt;" mc="Class" uid="7943c58b-7376-4df1-868d-8cc6ea3756fd"/>
+    <COMPID name="Seq&lt;char&gt;" mc="Class" uid="f657bf01-f80f-4b8f-a23c-cd4a7f5787a8"/>
+  </DEPS>
+  <OBJECT>
+    <ID name="Binding classes" mc="Package" uid="57ace606-c639-476a-83d0-8c1cd33805ad"/>
+    <PID name="russian bank" mc="Package" uid="ba3e8af3-fa24-44b1-a866-3a15c48bbb2d"/>
+    <ATTRIBUTES>
+      <ATT name="IsInstantiable">false</ATT>
+      <ATT name="IsAbstract">false</ATT>
+      <ATT name="IsLeaf">false</ATT>
+      <ATT name="IsRoot">false</ATT>
+      <ATT name="Visibility">Public</ATT>
+      <ATT name="Name"><![CDATA[Binding classes]]></ATT>
+      <ATT name="status">1970354901745664</ATT>
+    </ATTRIBUTES>
+    <DEPENDENCIES>
+      <COMP relation="OwnedElement">
+        <COMPID name="Optional&lt;Board::activePlayer_FirstPlayerSecondPlayer_2068268057&gt;" mc="Class" uid="e3d1c5ae-5a60-4662-b1fd-6243a56a1117"/>
+        <COMPID name="Seq&lt;Card&gt;" mc="Class" uid="5caeb85a-aec0-4c9e-99dd-825a94e17f6c"/>
+        <COMPID name="Seq&lt;Deck&gt;" mc="Class" uid="7943c58b-7376-4df1-868d-8cc6ea3756fd"/>
+        <COMPID name="Optional&lt;nat1&gt;" mc="Class" uid="682f20b6-9903-47f5-8e53-91df16a18cb1"/>
+        <COMPID name="Seq&lt;char&gt;" mc="Class" uid="f657bf01-f80f-4b8f-a23c-cd4a7f5787a8"/>
+        <COMPID name="Product&lt;bool,Optional&lt;p&gt;&gt;" mc="Class" uid="a229dc9c-0636-4e07-9212-eb3d75706aa3"/>
+        <COMPID name="Optional&lt;p&gt;" mc="Class" uid="d2858922-b66e-4fe1-a385-7ebdcd4915ce"/>
+        <COMPID name="Optional&lt;IO::filedirective&gt;" mc="Class" uid="0d0f3421-076f-413b-bf94-39c4abc73a56"/>
+        <COMPID name="Seq&lt;Any&gt;" mc="Class" uid="332d7fcd-e12e-4212-bfd6-5cd5f06f011a"/>
+      </COMP>
+    </DEPENDENCIES>
+  </OBJECT>
+</EXT>

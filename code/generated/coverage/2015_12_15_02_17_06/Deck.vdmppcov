@@ -1,0 +1,162 @@
+class Deck
+/*
+	Class that represents a deck of cards, having
+	some utilitary functions and operations to work on it
+*/
+	types
+		public Cards = seq of Card; -- a set of cards represent a deck
+		
+	instance variables
+		public cards: Cards;
+		public defaultCards: Cards := [new Card(1, <Clubs>), new Card(2, <Clubs>), new Card(3, <Clubs>), new Card(4, <Clubs>), new Card(5, <Clubs>), 
+				new Card(6, <Clubs>), new Card(7, <Clubs>), new Card(8, <Clubs>), new Card(9, <Clubs>), new Card(10, <Clubs>), new Card(11, <Clubs>), 
+				new Card(12, <Clubs>), new Card(13, <Clubs>), new Card(1, <Hearts>), new Card(2, <Hearts>), new Card(3, <Hearts>), new Card(4, <Hearts>), 
+				new Card(5, <Hearts>), new Card(6, <Hearts>), new Card(7, <Hearts>), new Card(8, <Hearts>), new Card(9, <Hearts>), new Card(10, <Hearts>), 
+				new Card(11, <Hearts>), new Card(12, <Hearts>), new Card(13, <Hearts>), new Card(1, <Spades>), new Card(2, <Spades>), new Card(3, <Spades>), 
+				new Card(4, <Spades>), new Card(5, <Spades>), new Card(6, <Spades>), new Card(7, <Spades>), new Card(8, <Spades>), new Card(9, <Spades>), 
+				new Card(10, <Spades>), new Card(11, <Spades>), new Card(12, <Spades>), new Card(13, <Spades>), new Card(1, <Diamonds>), 
+				new Card(2, <Diamonds>), new Card(3, <Diamonds>), new Card(4, <Diamonds>), new Card(5, <Diamonds>), new Card(6, <Diamonds>), 
+				new Card(7, <Diamonds>), new Card(8, <Diamonds>), new Card(9, <Diamonds>), new Card(10, <Diamonds>), new Card(11, <Diamonds>),
+				new Card(12, <Diamonds>), new Card(13, <Diamonds>)];
+	
+	functions
+		-- returns true if the deck is empty
+		-- returns false otherwise.
+		public isEmpty: Cards -> bool
+			isEmpty(cds) == (
+				if( len cds > 0) 
+					then false
+				else 
+					true
+			);
+		
+		-- function that returns true if the deck is shuffled
+		-- returns false otherwise.
+		public isShuffled: Deck -> bool
+			isShuffled(dk) == (
+				if dk.cards = dk.defaultCards then
+					false
+				else
+					true
+			);
+		-- reverse a seq of cards
+		public reverseCards: Cards -> Cards
+			reverseCards(cds) ==
+				if(len cds = 1) then
+					cds
+				else
+					reverseCards(tl cds) ^ [hd cds];
+		
+		-- check if a seq of cards is ordered sequentially by number
+		-- and alternately by color
+		public isOrdered: Cards -> bool
+				isOrdered(cds) == 
+					let x = hd cds
+					in let remainder = tl cds
+						in if isEmpty(remainder) then true
+							else let y = hd tl cds
+								in if x.number <> y.number - 1 or x.color = y.color then false
+									else (
+										if isEmpty(tl cds) then true 
+										 else isOrdered(tl cds)
+									)
+		pre isEmpty(cds) = false;
+		
+		-- check if a seq of cards is ordered sequentially by number
+		-- and if it has the same suit
+		public isOrderedSuit: Cards -> bool
+				isOrderedSuit(cds) == 
+					let x = hd cds
+					in let remainder = tl cds
+						in if isEmpty(remainder) then true
+							else let y = hd tl cds
+								in if x.number <> y.number - 1 and x.suit <> y.suit then false
+									else (
+										if isEmpty(tl cds) then true
+											else isOrderedSuit(tl cds)
+									)
+		pre isEmpty(cds) = false;
+		
+	operations
+		-- default constructor.
+		public Deck: () ==> Deck
+			Deck() == (
+				cards := [];
+				return self
+		);
+		
+		-- constructor that accepts cards.
+		public Deck: seq of Card ==> Deck
+			Deck(c) == (
+				cards := c
+		);
+		
+		-- create a complete deck with 52 cards.
+		-- pre and post conditions mean it can only be called once.
+		public createCompleteDeck: () ==> Deck
+			createCompleteDeck() == (
+				cards := defaultCards;
+				
+				return self;
+			)
+			pre cards = []
+			post len cards = 52;
+		
+		-- operation to remove a card from a deck
+		public removeFromDeck: nat1 ==> ()
+			removeFromDeck(r) == (
+				dcl length:nat := len cards;
+				if (r = 1) then -- removing the first element
+					cards := tl cards
+				elseif (r = length) then -- removing the last element
+					cards := (Deck`reverseCards(tl Deck`reverseCards(cards)))
+				elseif (r = length - 1) then -- removing second-to-last element
+					cards := (cards(1,..., r - 1) ^ [hd Deck`reverseCards(cards)])
+				else -- other cases
+					cards := (cards(1,..., r - 1) ^ cards(r + 1,...,length))
+			);
+			
+			-- operation that adds a card to the front of a deck
+			public addIntoDeckFront: Card ==> ()
+				addIntoDeckFront(elem) == (
+					cards := [elem] ^ cards
+			);
+			
+			--operation that turns up the top card of a deck
+			public turnUpTopCard: () ==> ()
+				turnUpTopCard() == (
+				dcl crd:Card := hd cards;
+				crd.turnCard();
+				cards := [crd] ^ tl cards;
+			);
+			
+			-- remove the top element from a deck
+			public removeTopCard: () ==> ()
+				removeTopCard() == (
+					self.removeFromDeck(1);
+			);
+			
+			-- returns the top card from the deck
+			public getTopCard: () ==> Card
+				getTopCard() == (
+					return hd cards;
+			);
+			
+			-- operation that shuffles the deck for subsequent uses
+			public shuffleDeck: () ==> ()
+				shuffleDeck() == (
+					dcl res:seq of Card := [];
+					dcl lenlist:nat := len cards;
+					dcl i:nat := 1;
+					
+					while i <= lenlist do (
+						dcl n:nat := MATH`rand(len cards) + 1;
+						res := res ^ [cards(n)];
+						self.removeFromDeck(n);
+						i := i + 1;
+					);
+					
+					cards := res;
+				);
+				
+end Deck

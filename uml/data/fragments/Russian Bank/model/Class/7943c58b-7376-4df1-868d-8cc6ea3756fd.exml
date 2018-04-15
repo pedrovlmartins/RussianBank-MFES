@@ -1,0 +1,59 @@
+<?xml version="1.0" ?>
+<!--GENERATED FILE, PLEASE DO NOT EDIT!!!--><EXT object="Seq&lt;Deck&gt;" version="3">
+  <DEPS>
+    <ID name="Seq&lt;Deck&gt;" mc="Class" uid="7943c58b-7376-4df1-868d-8cc6ea3756fd"/>
+    <EXTID name="Deck" mc="Class" uid="5070d2bf-a9cc-4741-91d6-2b864817024f"/>
+    <EXTID name="Seq&lt;T&gt;" mc="Class" uid="37e3f5b0-4d27-4b1a-a3a9-a7f3410d989f"/>
+  </DEPS>
+  <OBJECT>
+    <ID name="Seq&lt;Deck&gt;" mc="Class" uid="7943c58b-7376-4df1-868d-8cc6ea3756fd"/>
+    <PID name="Binding classes" mc="Package" uid="57ace606-c639-476a-83d0-8c1cd33805ad"/>
+    <ATTRIBUTES>
+      <ATT name="IsActive">false</ATT>
+      <ATT name="IsMain">false</ATT>
+      <ATT name="IsElementary">false</ATT>
+      <ATT name="IsAbstract">false</ATT>
+      <ATT name="IsLeaf">false</ATT>
+      <ATT name="IsRoot">false</ATT>
+      <ATT name="Visibility">Public</ATT>
+      <ATT name="Name"><![CDATA[Seq<Deck>]]></ATT>
+      <ATT name="status">1970354901745664</ATT>
+    </ATTRIBUTES>
+    <DEPENDENCIES>
+      <COMP relation="TemplateInstanciation">
+        <OBJECT>
+          <ID name="" mc="TemplateBinding" uid="c9a6c6ea-bfc9-4b6b-bf9a-0ed44a460d72"/>
+          <PID name="Seq&lt;Deck&gt;" mc="Class" uid="7943c58b-7376-4df1-868d-8cc6ea3756fd"/>
+          <ATTRIBUTES>
+            <ATT name="Name"></ATT>
+            <ATT name="status">1970354901745664</ATT>
+          </ATTRIBUTES>
+          <DEPENDENCIES>
+            <COMP relation="ParameterSubstitution">
+              <OBJECT>
+                <ID name="" mc="TemplateParameterSubstitution" uid="66d03ead-a0f3-48dc-89c9-d4e9f43eeeea"/>
+                <PID name="Seq&lt;Deck&gt;" mc="Class" uid="7943c58b-7376-4df1-868d-8cc6ea3756fd"/>
+                <ATTRIBUTES>
+                  <ATT name="Value"></ATT>
+                  <ATT name="Name"></ATT>
+                  <ATT name="status">1970354901745664</ATT>
+                </ATTRIBUTES>
+                <DEPENDENCIES>
+                  <LINK relation="Actual">
+                    <ID name="Deck" mc="Class" uid="5070d2bf-a9cc-4741-91d6-2b864817024f"/>
+                  </LINK>
+                  <LINK relation="FormalParameter">
+                    <REFOBJ>
+                      <ID name="" mc="TemplateParameter" uid="debcd1e8-79c2-4355-8a6b-5e5aaad9bdee"/>
+                      <PID name="Seq&lt;T&gt;" mc="Class" uid="37e3f5b0-4d27-4b1a-a3a9-a7f3410d989f"/>
+                    </REFOBJ>
+                  </LINK>
+                </DEPENDENCIES>
+              </OBJECT>
+            </COMP>
+          </DEPENDENCIES>
+        </OBJECT>
+      </COMP>
+    </DEPENDENCIES>
+  </OBJECT>
+</EXT>

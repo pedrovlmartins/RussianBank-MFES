@@ -1,0 +1,40 @@
+<?xml version="1.0" ?>
+<!--GENERATED FILE, PLEASE DO NOT EDIT!!!--><EXT object="Number" version="3">
+  <DEPS>
+    <ID name="Number" mc="Class" uid="ced11d18-28fa-4263-a85e-c76e5ec3ace4"/>
+    <EXTID name="nat1" mc="DataType" uid="3717969b-dc6e-4342-9091-e6726f4a2e1e"/>
+  </DEPS>
+  <OBJECT>
+    <ID name="Number" mc="Class" uid="ced11d18-28fa-4263-a85e-c76e5ec3ace4"/>
+    <PID name="Card" mc="Class" uid="a4d94c87-c661-469b-8995-b4c4c4c6bd25"/>
+    <ATTRIBUTES>
+      <ATT name="IsActive">false</ATT>
+      <ATT name="IsMain">false</ATT>
+      <ATT name="IsElementary">false</ATT>
+      <ATT name="IsAbstract">false</ATT>
+      <ATT name="IsLeaf">false</ATT>
+      <ATT name="IsRoot">false</ATT>
+      <ATT name="Visibility">Public</ATT>
+      <ATT name="Name"><![CDATA[Number]]></ATT>
+      <ATT name="status">1970354901745664</ATT>
+    </ATTRIBUTES>
+    <DEPENDENCIES>
+      <COMP relation="Parent">
+        <OBJECT>
+          <ID name="" mc="Generalization" uid="79a48e87-d568-41ca-a542-13f7a716ccd3"/>
+          <PID name="Number" mc="Class" uid="ced11d18-28fa-4263-a85e-c76e5ec3ace4"/>
+          <ATTRIBUTES>
+            <ATT name="Discriminator"></ATT>
+            <ATT name="Name"></ATT>
+            <ATT name="status">1970354901745664</ATT>
+          </ATTRIBUTES>
+          <DEPENDENCIES>
+            <LINK relation="SuperType">
+              <ID name="nat1" mc="DataType" uid="3717969b-dc6e-4342-9091-e6726f4a2e1e"/>
+            </LINK>
+          </DEPENDENCIES>
+        </OBJECT>
+      </COMP>
+    </DEPENDENCIES>
+  </OBJECT>
+</EXT>

@@ -1,0 +1,59 @@
+<?xml version="1.0" ?>
+<!--GENERATED FILE, PLEASE DO NOT EDIT!!!--><EXT object="Seq&lt;char&gt;" version="3">
+  <DEPS>
+    <ID name="Seq&lt;char&gt;" mc="Class" uid="f657bf01-f80f-4b8f-a23c-cd4a7f5787a8"/>
+    <EXTID name="Seq&lt;T&gt;" mc="Class" uid="37e3f5b0-4d27-4b1a-a3a9-a7f3410d989f"/>
+    <FOREIGNID name="char" mc="DataType" uid="00000004-0000-0007-0000-000000000000"/>
+  </DEPS>
+  <OBJECT>
+    <ID name="Seq&lt;char&gt;" mc="Class" uid="f657bf01-f80f-4b8f-a23c-cd4a7f5787a8"/>
+    <PID name="Binding classes" mc="Package" uid="57ace606-c639-476a-83d0-8c1cd33805ad"/>
+    <ATTRIBUTES>
+      <ATT name="IsActive">false</ATT>
+      <ATT name="IsMain">false</ATT>
+      <ATT name="IsElementary">false</ATT>
+      <ATT name="IsAbstract">false</ATT>
+      <ATT name="IsLeaf">false</ATT>
+      <ATT name="IsRoot">false</ATT>
+      <ATT name="Visibility">Public</ATT>
+      <ATT name="Name"><![CDATA[Seq<char>]]></ATT>
+      <ATT name="status">1970354901745664</ATT>
+    </ATTRIBUTES>
+    <DEPENDENCIES>
+      <COMP relation="TemplateInstanciation">
+        <OBJECT>
+          <ID name="" mc="TemplateBinding" uid="54622eab-5bdf-4b9c-b525-03ab1c466086"/>
+          <PID name="Seq&lt;char&gt;" mc="Class" uid="f657bf01-f80f-4b8f-a23c-cd4a7f5787a8"/>
+          <ATTRIBUTES>
+            <ATT name="Name"></ATT>
+            <ATT name="status">1970354901745664</ATT>
+          </ATTRIBUTES>
+          <DEPENDENCIES>
+            <COMP relation="ParameterSubstitution">
+              <OBJECT>
+                <ID name="" mc="TemplateParameterSubstitution" uid="ca34d51f-9cab-4e13-b3d9-553334d75ade"/>
+                <PID name="Seq&lt;char&gt;" mc="Class" uid="f657bf01-f80f-4b8f-a23c-cd4a7f5787a8"/>
+                <ATTRIBUTES>
+                  <ATT name="Value"></ATT>
+                  <ATT name="Name"></ATT>
+                  <ATT name="status">1970354901745664</ATT>
+                </ATTRIBUTES>
+                <DEPENDENCIES>
+                  <LINK relation="Actual">
+                    <FOREIGNID name="char" mc="DataType" uid="00000004-0000-0007-0000-000000000000"/>
+                  </LINK>
+                  <LINK relation="FormalParameter">
+                    <REFOBJ>
+                      <ID name="" mc="TemplateParameter" uid="debcd1e8-79c2-4355-8a6b-5e5aaad9bdee"/>
+                      <PID name="Seq&lt;T&gt;" mc="Class" uid="37e3f5b0-4d27-4b1a-a3a9-a7f3410d989f"/>
+                    </REFOBJ>
+                  </LINK>
+                </DEPENDENCIES>
+              </OBJECT>
+            </COMP>
+          </DEPENDENCIES>
+        </OBJECT>
+      </COMP>
+    </DEPENDENCIES>
+  </OBJECT>
+</EXT>

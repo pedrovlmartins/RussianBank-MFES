@@ -1,0 +1,40 @@
+<?xml version="1.0" ?>
+<!--GENERATED FILE, PLEASE DO NOT EDIT!!!--><EXT object="activePlayer" version="3">
+  <DEPS>
+    <ID name="activePlayer" mc="Class" uid="e587f73f-9ac9-4aa3-9bac-512adfb5a199"/>
+    <EXTID name="Optional&lt;Board::activePlayer_FirstPlayerSecondPlayer_2068268057&gt;" mc="Class" uid="e3d1c5ae-5a60-4662-b1fd-6243a56a1117"/>
+  </DEPS>
+  <OBJECT>
+    <ID name="activePlayer" mc="Class" uid="e587f73f-9ac9-4aa3-9bac-512adfb5a199"/>
+    <PID name="Board" mc="Class" uid="2b075d55-5e61-4683-8e4f-6c3adfb9601f"/>
+    <ATTRIBUTES>
+      <ATT name="IsActive">false</ATT>
+      <ATT name="IsMain">false</ATT>
+      <ATT name="IsElementary">false</ATT>
+      <ATT name="IsAbstract">false</ATT>
+      <ATT name="IsLeaf">false</ATT>
+      <ATT name="IsRoot">false</ATT>
+      <ATT name="Visibility">Public</ATT>
+      <ATT name="Name"><![CDATA[activePlayer]]></ATT>
+      <ATT name="status">1970354901745664</ATT>
+    </ATTRIBUTES>
+    <DEPENDENCIES>
+      <COMP relation="Parent">
+        <OBJECT>
+          <ID name="" mc="Generalization" uid="61e18b85-9efa-41b2-8bf8-dc669a565e32"/>
+          <PID name="activePlayer" mc="Class" uid="e587f73f-9ac9-4aa3-9bac-512adfb5a199"/>
+          <ATTRIBUTES>
+            <ATT name="Discriminator"></ATT>
+            <ATT name="Name"></ATT>
+            <ATT name="status">1970354901745664</ATT>
+          </ATTRIBUTES>
+          <DEPENDENCIES>
+            <LINK relation="SuperType">
+              <ID name="Optional&lt;Board::activePlayer_FirstPlayerSecondPlayer_2068268057&gt;" mc="Class" uid="e3d1c5ae-5a60-4662-b1fd-6243a56a1117"/>
+            </LINK>
+          </DEPENDENCIES>
+        </OBJECT>
+      </COMP>
+    </DEPENDENCIES>
+  </OBJECT>
+</EXT>

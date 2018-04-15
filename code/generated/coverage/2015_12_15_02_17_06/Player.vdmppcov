@@ -1,0 +1,43 @@
+class Player
+/*	
+	Class that represents a player
+	Each player has initially one deck, that will be divided on hand cards
+	and reserve cards. They also have a color for identifying the player
+	and its cards and a waste, were will be placed cards
+*/
+	types
+		public Color = <Red> | <Black>;
+	
+	instance variables
+		public score: nat := 0;
+		public color: Color;
+		public fullDeck: Deck := new Deck();
+		public reserve: Deck := new Deck();
+		public waste: Deck := new Deck();
+		public hand: Deck := new Deck();
+		
+	operations
+		-- constructor
+		public Player: Color ==> Player
+			Player(clr) == (
+			color := clr;
+			fullDeck := fullDeck.createCompleteDeck();
+			return self;
+		);
+			
+		-- divides the personal deck in two piles, one the reserve and the other the hand
+		public createHandReserve: () ==> ()
+			createHandReserve() == (
+			dcl crds:Deck`Cards := fullDeck.cards;
+			reserve.cards := (crds(1,..., 13)); -- create reserve
+			hand.cards := (crds(14,...,52)); -- create hand
+			reserve.turnUpTopCard()
+		) pre Deck`isEmpty(hand.cards) and Deck`isEmpty(reserve.cards)
+			post len hand.cards = 39 and len reserve.cards = 13;
+		
+		-- shuffles the personal deck for subsequent uses
+		public shuffleDeck: () ==> ()
+			shuffleDeck() ==
+				fullDeck.shuffleDeck();
+		
+end Player

@@ -1,0 +1,49 @@
+<?xml version="1.0" ?>
+<!--GENERATED FILE, PLEASE DO NOT EDIT!!!--><EXT object="russian bank" version="3">
+  <DEPS>
+    <ID name="russian bank" mc="Package" uid="ba3e8af3-fa24-44b1-a866-3a15c48bbb2d"/>
+    <COMPID name="Basic VDM Types" mc="Package" uid="62bacacd-5aa9-4350-b40c-5fdb462dc716"/>
+    <COMPID name="Binding classes" mc="Package" uid="57ace606-c639-476a-83d0-8c1cd33805ad"/>
+    <COMPID name="Board" mc="Class" uid="2b075d55-5e61-4683-8e4f-6c3adfb9601f"/>
+    <COMPID name="Card" mc="Class" uid="a4d94c87-c661-469b-8995-b4c4c4c6bd25"/>
+    <COMPID name="Composite VDM Types" mc="Package" uid="728592a9-8785-4d3b-9b09-583354379b66"/>
+    <COMPID name="Deck" mc="Class" uid="5070d2bf-a9cc-4741-91d6-2b864817024f"/>
+    <COMPID name="IO" mc="Class" uid="ae081850-240c-4afb-aa74-b4b8a26e80c8"/>
+    <COMPID name="MATH" mc="Class" uid="b960608e-1122-4257-ae44-fdb9c9224c8b"/>
+    <COMPID name="MyTestCase" mc="Class" uid="e3bf55f7-a66b-4b4d-b098-53b9a4d5b130"/>
+    <COMPID name="Player" mc="Class" uid="779e2145-468a-4d7c-8210-80bf1fb1da6e"/>
+    <COMPID name="TestRussianBank" mc="Class" uid="e30e24a1-4e48-4f5b-bdfa-093b33aa646e"/>
+    <COMPID name="overview diagram" mc="ClassDiagram" uid="0e7d636d-2756-42e9-8af5-e5e4e3ed1d1d"/>
+  </DEPS>
+  <OBJECT>
+    <ID name="russian bank" mc="Package" uid="ba3e8af3-fa24-44b1-a866-3a15c48bbb2d"/>
+    <PID name="Russian Bank" mc="Project" uid="039ac709-fdd6-4204-922e-2fe6e1a693a0"/>
+    <ATTRIBUTES>
+      <ATT name="IsInstantiable">false</ATT>
+      <ATT name="IsAbstract">false</ATT>
+      <ATT name="IsLeaf">false</ATT>
+      <ATT name="IsRoot">false</ATT>
+      <ATT name="Visibility">Public</ATT>
+      <ATT name="Name"><![CDATA[russian bank]]></ATT>
+      <ATT name="status">1970354901745664</ATT>
+    </ATTRIBUTES>
+    <DEPENDENCIES>
+      <COMP relation="OwnedElement">
+        <COMPID name="Board" mc="Class" uid="2b075d55-5e61-4683-8e4f-6c3adfb9601f"/>
+        <COMPID name="Card" mc="Class" uid="a4d94c87-c661-469b-8995-b4c4c4c6bd25"/>
+        <COMPID name="Deck" mc="Class" uid="5070d2bf-a9cc-4741-91d6-2b864817024f"/>
+        <COMPID name="Player" mc="Class" uid="779e2145-468a-4d7c-8210-80bf1fb1da6e"/>
+        <COMPID name="IO" mc="Class" uid="ae081850-240c-4afb-aa74-b4b8a26e80c8"/>
+        <COMPID name="MATH" mc="Class" uid="b960608e-1122-4257-ae44-fdb9c9224c8b"/>
+        <COMPID name="MyTestCase" mc="Class" uid="e3bf55f7-a66b-4b4d-b098-53b9a4d5b130"/>
+        <COMPID name="TestRussianBank" mc="Class" uid="e30e24a1-4e48-4f5b-bdfa-093b33aa646e"/>
+        <COMPID name="Composite VDM Types" mc="Package" uid="728592a9-8785-4d3b-9b09-583354379b66"/>
+        <COMPID name="Binding classes" mc="Package" uid="57ace606-c639-476a-83d0-8c1cd33805ad"/>
+        <COMPID name="Basic VDM Types" mc="Package" uid="62bacacd-5aa9-4350-b40c-5fdb462dc716"/>
+      </COMP>
+      <COMP relation="Product">
+        <COMPID name="overview diagram" mc="ClassDiagram" uid="0e7d636d-2756-42e9-8af5-e5e4e3ed1d1d"/>
+      </COMP>
+    </DEPENDENCIES>
+  </OBJECT>
+</EXT>

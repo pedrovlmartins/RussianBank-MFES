@@ -1,0 +1,59 @@
+<?xml version="1.0" ?>
+<!--GENERATED FILE, PLEASE DO NOT EDIT!!!--><EXT object="Seq&lt;Card&gt;" version="3">
+  <DEPS>
+    <ID name="Seq&lt;Card&gt;" mc="Class" uid="5caeb85a-aec0-4c9e-99dd-825a94e17f6c"/>
+    <EXTID name="Card" mc="Class" uid="a4d94c87-c661-469b-8995-b4c4c4c6bd25"/>
+    <EXTID name="Seq&lt;T&gt;" mc="Class" uid="37e3f5b0-4d27-4b1a-a3a9-a7f3410d989f"/>
+  </DEPS>
+  <OBJECT>
+    <ID name="Seq&lt;Card&gt;" mc="Class" uid="5caeb85a-aec0-4c9e-99dd-825a94e17f6c"/>
+    <PID name="Binding classes" mc="Package" uid="57ace606-c639-476a-83d0-8c1cd33805ad"/>
+    <ATTRIBUTES>
+      <ATT name="IsActive">false</ATT>
+      <ATT name="IsMain">false</ATT>
+      <ATT name="IsElementary">false</ATT>
+      <ATT name="IsAbstract">false</ATT>
+      <ATT name="IsLeaf">false</ATT>
+      <ATT name="IsRoot">false</ATT>
+      <ATT name="Visibility">Public</ATT>
+      <ATT name="Name"><![CDATA[Seq<Card>]]></ATT>
+      <ATT name="status">1970354901745664</ATT>
+    </ATTRIBUTES>
+    <DEPENDENCIES>
+      <COMP relation="TemplateInstanciation">
+        <OBJECT>
+          <ID name="" mc="TemplateBinding" uid="f20e39a0-a327-4f19-bb95-72a768161ef7"/>
+          <PID name="Seq&lt;Card&gt;" mc="Class" uid="5caeb85a-aec0-4c9e-99dd-825a94e17f6c"/>
+          <ATTRIBUTES>
+            <ATT name="Name"></ATT>
+            <ATT name="status">1970354901745664</ATT>
+          </ATTRIBUTES>
+          <DEPENDENCIES>
+            <COMP relation="ParameterSubstitution">
+              <OBJECT>
+                <ID name="" mc="TemplateParameterSubstitution" uid="d9e466c7-da8c-4dbf-96bb-c5c6a949bdb3"/>
+                <PID name="Seq&lt;Card&gt;" mc="Class" uid="5caeb85a-aec0-4c9e-99dd-825a94e17f6c"/>
+                <ATTRIBUTES>
+                  <ATT name="Value"></ATT>
+                  <ATT name="Name"></ATT>
+                  <ATT name="status">1970354901745664</ATT>
+                </ATTRIBUTES>
+                <DEPENDENCIES>
+                  <LINK relation="Actual">
+                    <ID name="Card" mc="Class" uid="a4d94c87-c661-469b-8995-b4c4c4c6bd25"/>
+                  </LINK>
+                  <LINK relation="FormalParameter">
+                    <REFOBJ>
+                      <ID name="" mc="TemplateParameter" uid="debcd1e8-79c2-4355-8a6b-5e5aaad9bdee"/>
+                      <PID name="Seq&lt;T&gt;" mc="Class" uid="37e3f5b0-4d27-4b1a-a3a9-a7f3410d989f"/>
+                    </REFOBJ>
+                  </LINK>
+                </DEPENDENCIES>
+              </OBJECT>
+            </COMP>
+          </DEPENDENCIES>
+        </OBJECT>
+      </COMP>
+    </DEPENDENCIES>
+  </OBJECT>
+</EXT>

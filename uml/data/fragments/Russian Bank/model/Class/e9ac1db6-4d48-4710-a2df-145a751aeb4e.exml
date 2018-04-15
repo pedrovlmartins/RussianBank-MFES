@@ -1,0 +1,43 @@
+<?xml version="1.0" ?>
+<!--GENERATED FILE, PLEASE DO NOT EDIT!!!--><EXT object="Color" version="3">
+  <DEPS>
+    <ID name="Color" mc="Class" uid="e9ac1db6-4d48-4710-a2df-145a751aeb4e"/>
+    <EXTID name="Player" mc="Class" uid="779e2145-468a-4d7c-8210-80bf1fb1da6e"/>
+  </DEPS>
+  <OBJECT>
+    <ID name="Color" mc="Class" uid="e9ac1db6-4d48-4710-a2df-145a751aeb4e"/>
+    <PID name="Player" mc="Class" uid="779e2145-468a-4d7c-8210-80bf1fb1da6e"/>
+    <ATTRIBUTES>
+      <ATT name="IsActive">false</ATT>
+      <ATT name="IsMain">false</ATT>
+      <ATT name="IsElementary">false</ATT>
+      <ATT name="IsAbstract">false</ATT>
+      <ATT name="IsLeaf">false</ATT>
+      <ATT name="IsRoot">false</ATT>
+      <ATT name="Visibility">Public</ATT>
+      <ATT name="Name"><![CDATA[Color]]></ATT>
+      <ATT name="status">1970354901745664</ATT>
+    </ATTRIBUTES>
+    <DEPENDENCIES>
+      <COMP relation="Parent">
+        <OBJECT>
+          <ID name="" mc="Generalization" uid="8db63e6c-9cd4-4fd0-803a-9e7b665b141f"/>
+          <PID name="Color" mc="Class" uid="e9ac1db6-4d48-4710-a2df-145a751aeb4e"/>
+          <ATTRIBUTES>
+            <ATT name="Discriminator"></ATT>
+            <ATT name="Name"></ATT>
+            <ATT name="status">1970354901745664</ATT>
+          </ATTRIBUTES>
+          <DEPENDENCIES>
+            <LINK relation="SuperType">
+              <REFOBJ>
+                <ID name="Color_BlueRed_1985840372" mc="Enumeration" uid="f58cc02b-8bb2-4ed9-b3c4-78ebe4a05d96"/>
+                <PID name="Player" mc="Class" uid="779e2145-468a-4d7c-8210-80bf1fb1da6e"/>
+              </REFOBJ>
+            </LINK>
+          </DEPENDENCIES>
+        </OBJECT>
+      </COMP>
+    </DEPENDENCIES>
+  </OBJECT>
+</EXT>

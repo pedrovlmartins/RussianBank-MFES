@@ -1,0 +1,384 @@
+/*
+TestRussianBank tests the various case scenarios that could be implemented into this project.
+> creates a board, verifying the available cards for each player and the cards in the game.
+> move card from reserve (to any available position, verifying the rules of the game).
+> move card from tableau (to any available position, verifying also the rules of the game).
+> ends the game, checking whose player won (and with how many points).
+*/
+
+class TestRussianBank is subclass of MyTestCase
+	operations
+		public  static main: () ==> ()
+			main() == (
+				new TestRussianBank().availableCardsStart();
+				new TestRussianBank().moveCardFromReserve();
+				new TestRussianBank().moveCardFromReserve2();
+				new TestRussianBank().moveCardFromTableau();
+				new TestRussianBank().moveCardFromTableau2();
+				new TestRussianBank().calculateEndingPoints();
+				new TestRussianBank().calculateEndingPoints2();
+			);
+		
+		-- verifies if the available cards at the beginning of the game
+		-- are the ones defined by the game rules.
+		-- answers the R1 requirement
+		public availableCardsStart: () ==> ()
+			availableCardsStart() == (
+				dcl bd: Board := new Board();
+				
+				-- Operation createStartingBoard copied for testing purposes
+				bd.firstPlayer := new Player(<Red>);
+				bd.secondPlayer := new Player(<Black>);
+				
+				assertEqual(Deck`isShuffled(bd.firstPlayer.fullDeck),false);
+				assertEqual(Deck`isShuffled(bd.secondPlayer.fullDeck),false);
+				
+				-- shuffle the decks for each player
+				bd.firstPlayer.shuffleDeck();
+				bd.secondPlayer.shuffleDeck();
+				
+				assertEqual(Deck`isShuffled(bd.firstPlayer.fullDeck),true);
+				assertEqual(Deck`isShuffled(bd.secondPlayer.fullDeck),true);
+				
+				-- creates the hands and reserve pile for each player
+				bd.firstPlayer.createHandReserve();
+				bd.secondPlayer.createHandReserve();
+				
+				assertEqual(len bd.firstPlayer.hand.cards,39);
+				assertEqual(len bd.secondPlayer.hand.cards,39);
+				
+				-- fills the tableau with 4 cards dealt from each play's hand
+				bd.fillInitialTableau();
+				
+				assertEqual(len bd.firstPlayer.hand.cards,35);
+				assertEqual(len bd.secondPlayer.hand.cards,35);
+				-- create the empty foundations
+				bd.fillInitialFoundations();
+				-- see who's the first player to make a move (the one with the lowest-ranking reserve card)
+				bd.setFirstTurn();
+				
+				for i = 1 to 8 do (
+					assertEqual(bd.tableau(i).getTopCard().status, <Face_Up>);
+					assertEqual(len bd.tableau(i).cards,1);
+					assertEqual(Deck`isEmpty(bd.foundations(i).cards),true);
+				);
+				assertEqual(bd.firstPlayer.reserve.getTopCard().status, <Face_Up>);
+				assertEqual(bd.secondPlayer.reserve.getTopCard().status, <Face_Up>);
+				assertEqual(Deck`isEmpty(bd.firstPlayer.waste.cards),true);
+				assertEqual(Deck`isEmpty(bd.secondPlayer.waste.cards),true);
+				for i = 2 to len bd.secondPlayer.reserve.cards do (
+					assertEqual(bd.firstPlayer.reserve.cards(i).status, <Face_Down>);
+					assertEqual(bd.secondPlayer.reserve.cards(i).status, <Face_Down>);
+				);
+				
+				assertEqual(len bd.firstPlayer.reserve.cards,13);
+				assertEqual(len bd.secondPlayer.reserve.cards,13);
+				
+				return
+			);
+		
+		-- moves a card from reserve to waste, foundation and tableau
+		-- answers the R2, R5, R6 requirements
+		public moveCardFromReserve: () ==> ()
+			moveCardFromReserve() == (
+				-- board for testing purposes
+				dcl bd:Board := new Board();
+				dcl cd1:Card := new Card(7,<Clubs>);
+				dcl cd2:Card := new Card(1,<Spades>);
+				dcl cd3:Card := new Card(6,<Hearts>);
+				dcl cd4:Card := new Card(5,<Diamonds>);
+				dcl cd5:Card := new Card(2,<Spades>);
+				dcl cd6:Card := new Card(3,<Spades>);
+				dcl cd7:Card := new Card(4,<Diamonds>);
+				
+				bd.firstPlayer := new Player(<Red>);
+				bd.secondPlayer := new Player(<Black>);
+				bd.turn := <FirstPlayer>;
+				
+				bd.tableau(1) := new Deck();
+				bd.addCardToTableau(1,cd1);
+				
+				bd.foundations(1) := new Deck();
+				
+				bd.firstPlayer.reserve.addIntoDeckFront(cd5);
+				bd.firstPlayer.reserve.addIntoDeckFront(cd4);
+				bd.firstPlayer.reserve.addIntoDeckFront(cd3);
+				bd.firstPlayer.reserve.addIntoDeckFront(cd2);
+				bd.firstPlayer.reserve.turnUpTopCard();
+				
+				bd.secondPlayer.reserve.addIntoDeckFront(cd6);
+				bd.secondPlayer.reserve.turnUpTopCard();
+				
+				bd.secondPlayer.waste.addIntoDeckFront(cd7);
+				bd.secondPlayer.waste.turnUpTopCard();
+				
+				assertEqual(bd.moveCardFromReserveToFoundation(1),true);
+				assertEqual(bd.moveCardFromReserveToFoundation(1),false);
+				
+				assertEqual(bd.moveCardFromReserveToTableau(1),true);
+				assertEqual(bd.moveCardFromReserveToTableau(1),false);
+				
+				assertEqual(bd.moveCardFromReserveToReserve(),false);
+				
+				assertEqual(bd.moveCardFromReserveToWaste(),true);
+				assertEqual(bd.moveCardFromReserveToWaste(),false);
+				
+				assertEqual(bd.moveCardFromReserveToReserve(),true);
+				
+			);
+			
+			-- moves a card from reserve to waste, foundation and tableau
+			-- answers the R4, R5 and R6 requirements
+		public moveCardFromReserve2: () ==> ()
+			moveCardFromReserve2() == (
+				-- board for testing purposes
+				dcl bd:Board := new Board();
+				dcl cd1:Card := new Card(7,<Clubs>);
+				dcl cd2:Card := new Card(1,<Spades>);
+				dcl cd3:Card := new Card(6,<Hearts>);
+				dcl cd4:Card := new Card(5,<Diamonds>);
+				dcl cd5:Card := new Card(2,<Spades>);
+				dcl cd6:Card := new Card(3,<Spades>);
+				dcl cd7:Card := new Card(4,<Diamonds>);
+				
+				bd.firstPlayer := new Player(<Red>);
+				bd.secondPlayer := new Player(<Black>);
+				bd.turn := <SecondPlayer>;
+				
+				bd.tableau(1) := new Deck();
+				bd.addCardToTableau(1,cd1);
+				
+				bd.foundations(1) := new Deck();
+				
+				bd.secondPlayer.reserve.addIntoDeckFront(cd5);
+				bd.secondPlayer.reserve.addIntoDeckFront(cd4);
+				bd.secondPlayer.reserve.addIntoDeckFront(cd3);
+				bd.secondPlayer.reserve.addIntoDeckFront(cd2);
+				bd.secondPlayer.reserve.turnUpTopCard();
+				
+				bd.firstPlayer.reserve.addIntoDeckFront(cd6);
+				bd.firstPlayer.reserve.turnUpTopCard();
+				
+				bd.firstPlayer.waste.addIntoDeckFront(cd7);
+				bd.firstPlayer.waste.turnUpTopCard();
+				
+				assertEqual(bd.moveCardFromReserveToFoundation(1),true);
+				assertEqual(bd.moveCardFromReserveToFoundation(1),false);
+				
+				assertEqual(bd.moveCardFromReserveToTableau(1),true);
+				assertEqual(bd.moveCardFromReserveToTableau(1),false);
+				
+				assertEqual(bd.moveCardFromReserveToReserve(),false);
+				
+				assertEqual(bd.moveCardFromReserveToWaste(),true);
+				assertEqual(bd.moveCardFromReserveToWaste(),false);
+				
+				assertEqual(bd.moveCardFromReserveToReserve(),true);
+				
+			);
+		
+		-- moves a card from tableau to foundation, other tableau, opponent's reserve and waste
+		-- answers the R3, R6, R7 requirements
+		public moveCardFromTableau: () ==> ()
+			moveCardFromTableau() == (
+				-- board for testing purposes
+				dcl bd:Board := new Board();
+				dcl cd1:Card := new Card(7,<Clubs>);
+				dcl cd2:Card := new Card(6,<Hearts>);
+				dcl cd3:Card := new Card(1,<Spades>);
+				dcl cd4:Card := new Card(8,<Clubs>);
+				dcl cd5:Card := new Card(5,<Hearts>);
+				dcl cd6:Card := new Card(7,<Spades>);
+				
+				bd.firstPlayer := new Player(<Red>);
+				bd.secondPlayer := new Player(<Black>);
+				bd.turn := <FirstPlayer>;
+				
+				bd.tableau(1) := new Deck();
+				bd.addCardToTableau(1,cd1);
+				bd.addCardToTableau(1,cd2);
+				
+				bd.tableau(2) := new Deck();
+				bd.addCardToTableau(2,cd3);
+
+				bd.tableau(3) := new Deck();
+				bd.addCardToTableau(3,cd6);
+				
+				bd.foundations(1) := new Deck();
+				
+				bd.secondPlayer.reserve.addIntoDeckFront(cd4);
+				bd.secondPlayer.reserve.turnUpTopCard();
+				
+				bd.secondPlayer.waste.addIntoDeckFront(cd5);
+				bd.secondPlayer.waste.turnUpTopCard();
+
+
+				assertEqual(bd.moveCardFromTableauToWaste(2),false);
+				assertEqual(bd.moveCardFromTableauToTableau(2,3),false);
+				assertEqual(bd.moveCardFromTableauToFoundation(2,1),true);
+				
+				assertEqual(bd.moveCardFromTableauToFoundation(1,1),false);
+				assertEqual(bd.moveCardFromTableauToTableau(1,3),true);
+				
+				assertEqual(bd.moveCardFromTableauToReserve(3),false);
+				assertEqual(bd.moveCardFromTableauToReserve(1),true);
+				
+				assertEqual(bd.moveCardFromTableauToWaste(3),true);
+			
+			);
+			
+		-- moves a card from tableau to foundation, other tableau, 
+		-- opponent's reserve and waste
+		-- answers the R3, R6, R7 requirements
+		public moveCardFromTableau2: () ==> ()
+			moveCardFromTableau2() == (
+				-- board for testing purposes
+				dcl bd:Board := new Board();
+				dcl cd1:Card := new Card(7,<Clubs>);
+				dcl cd2:Card := new Card(6,<Hearts>);
+				dcl cd3:Card := new Card(1,<Spades>);
+				dcl cd4:Card := new Card(8,<Clubs>);
+				dcl cd5:Card := new Card(5,<Hearts>);
+				dcl cd6:Card := new Card(7,<Spades>);
+				
+				bd.firstPlayer := new Player(<Red>);
+				bd.secondPlayer := new Player(<Black>);
+				bd.turn := <SecondPlayer>;
+				
+				bd.tableau(1) := new Deck();
+				bd.addCardToTableau(1,cd1);
+				bd.addCardToTableau(1,cd2);
+				
+				bd.tableau(2) := new Deck();
+				bd.addCardToTableau(2,cd3);
+
+				bd.tableau(3) := new Deck();
+				bd.addCardToTableau(3,cd6);
+				
+				bd.foundations(1) := new Deck();
+				
+				bd.firstPlayer.reserve.addIntoDeckFront(cd4);
+				bd.firstPlayer.reserve.turnUpTopCard();
+				
+				bd.firstPlayer.waste.addIntoDeckFront(cd5);
+				bd.firstPlayer.waste.turnUpTopCard();
+
+
+				assertEqual(bd.moveCardFromTableauToWaste(2),false);
+				assertEqual(bd.moveCardFromTableauToTableau(2,3),false);
+				assertEqual(bd.moveCardFromTableauToFoundation(2,1),true);
+				
+				assertEqual(bd.moveCardFromTableauToFoundation(1,1),false);
+				assertEqual(bd.moveCardFromTableauToTableau(1,3),true);
+				
+				assertEqual(bd.moveCardFromTableauToReserve(3),false);
+				assertEqual(bd.moveCardFromTableauToReserve(1),true);
+				
+				assertEqual(bd.moveCardFromTableauToWaste(3),true);
+			
+			);
+		
+		-- answers the R8 requirement
+		public calculateEndingPoints: () ==> ()
+			calculateEndingPoints() == (
+			-- board for testing purposes
+				dcl bd:Board := new Board();
+				dcl cd1:Card := new Card(7,<Clubs>);
+				dcl cd2:Card := new Card(6,<Hearts>);
+				dcl cd3:Card := new Card(1,<Spades>);
+				dcl cd4:Card := new Card(8,<Clubs>);
+				dcl cd5:Card := new Card(5,<Hearts>);
+				dcl cd6:Card := new Card(7,<Spades>);
+				
+				bd.firstPlayer := new Player(<Red>);
+				bd.secondPlayer := new Player(<Black>);
+				bd.turn := <FirstPlayer>;
+				
+				bd.tableau(1) := new Deck();
+				bd.addCardToTableau(1,cd1);
+				bd.addCardToTableau(1,cd2);
+				
+				bd.tableau(2) := new Deck();
+				bd.addCardToTableau(2,cd3);
+
+				bd.tableau(3) := new Deck();
+				bd.addCardToTableau(3,cd6);
+				
+				bd.foundations(1) := new Deck();
+				
+				bd.secondPlayer.reserve.addIntoDeckFront(cd4);
+				bd.secondPlayer.reserve.turnUpTopCard();
+				
+				bd.secondPlayer.waste.addIntoDeckFront(cd5);
+				bd.secondPlayer.waste.turnUpTopCard();
+
+
+				assertEqual(bd.moveCardFromTableauToWaste(2),false);
+				assertEqual(bd.moveCardFromTableauToTableau(2,3),false);
+				assertEqual(bd.moveCardFromTableauToFoundation(2,1),true);
+				
+				assertEqual(bd.moveCardFromTableauToFoundation(1,1),false);
+				assertEqual(bd.moveCardFromTableauToTableau(1,3),true);
+				
+				assertEqual(bd.moveCardFromTableauToReserve(3),false);
+				assertEqual(bd.moveCardFromTableauToReserve(1),true);
+				
+				assertEqual(bd.moveCardFromTableauToWaste(3),true);
+				
+				bd.updatePoints();
+				
+				assertEqual(bd.firstPlayer.score,36);
+			);
+		
+		-- answers the R8 requirement
+		public calculateEndingPoints2: () ==> ()
+			calculateEndingPoints2() == (
+			-- board for testing purposes
+				dcl bd:Board := new Board();
+				dcl cd1:Card := new Card(7,<Clubs>);
+				dcl cd2:Card := new Card(6,<Hearts>);
+				dcl cd3:Card := new Card(1,<Spades>);
+				dcl cd4:Card := new Card(8,<Clubs>);
+				dcl cd5:Card := new Card(5,<Hearts>);
+				dcl cd6:Card := new Card(7,<Spades>);
+				
+				bd.firstPlayer := new Player(<Red>);
+				bd.secondPlayer := new Player(<Black>);
+				bd.turn := <SecondPlayer>;
+				
+				bd.tableau(1) := new Deck();
+				bd.addCardToTableau(1,cd1);
+				bd.addCardToTableau(1,cd2);
+				
+				bd.tableau(2) := new Deck();
+				bd.addCardToTableau(2,cd3);
+
+				bd.tableau(3) := new Deck();
+				bd.addCardToTableau(3,cd6);
+				
+				bd.foundations(1) := new Deck();
+				
+				bd.firstPlayer.reserve.addIntoDeckFront(cd4);
+				bd.firstPlayer.reserve.turnUpTopCard();
+				
+				bd.firstPlayer.waste.addIntoDeckFront(cd5);
+				bd.firstPlayer.waste.turnUpTopCard();
+
+
+				assertEqual(bd.moveCardFromTableauToWaste(2),false);
+				assertEqual(bd.moveCardFromTableauToTableau(2,3),false);
+				assertEqual(bd.moveCardFromTableauToFoundation(2,1),true);
+				
+				assertEqual(bd.moveCardFromTableauToFoundation(1,1),false);
+				assertEqual(bd.moveCardFromTableauToTableau(1,3),true);
+				
+				assertEqual(bd.moveCardFromTableauToReserve(3),false);
+				assertEqual(bd.moveCardFromTableauToReserve(1),true);
+				
+				assertEqual(bd.moveCardFromTableauToWaste(3),true);
+				
+				bd.updatePoints();
+				
+				assertEqual(bd.secondPlayer.score,36);
+			);
+end TestRussianBank
