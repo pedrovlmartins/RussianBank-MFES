@@ -1,4 +1,4 @@
-** Russian Bank ** 
+**Russian Bank** 
 
 The purpose of this project was to create a formal model to a card game in VDM++ language. The tool used to implement the model was [Overture](http://overturetool.org/languages/).
 
